@@ -1,6 +1,7 @@
 import "@/index.css";
 
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GeistSans } from "geist/font/sans";
 import { Dot } from "lucide-react";
 import { type Metadata, type Viewport } from "next";
@@ -65,6 +66,7 @@ export default function RootLayout({
         </footer>
         <DarkModeSwitch />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
