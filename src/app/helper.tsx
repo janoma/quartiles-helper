@@ -79,12 +79,38 @@ export default function Helper() {
     defaultValues: Object.fromEntries(keys.map((key) => [key, ""])),
   });
 
+  /** Save words to local storage before continuing to process. */
+  function actionIntercept(data: FormData) {
+    const words = Object.fromEntries(data) as Record<
+      (typeof keys)[number],
+      string
+    >;
+    localStorage.setItem("words", JSON.stringify(words));
+    formAction(data);
+  }
+
+  useEffect(() => {
+    const data = localStorage.getItem("words");
+    if (data) {
+      try {
+        const words = JSON.parse(data) as Record<(typeof keys)[number], string>;
+        for (const key of keys) {
+          if (words[key]) {
+            form.setValue(key as keyof z.output<typeof schema>, words[key]);
+          }
+        }
+      } catch (error: unknown) {
+        console.error(error);
+      }
+    }
+  }, [form, keys]);
+
   return (
     <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
       <div className="flex rounded-lg border p-4 shadow-lg sm:p-8">
         <Form {...form}>
           {state.error && <div className="text-red-500">{state.error}</div>}
-          <form action={formAction} className="grid items-center">
+          <form action={actionIntercept} className="grid items-center">
             <div className="grid grid-cols-4 gap-2">
               {keys.map((key) => (
                 <FormField

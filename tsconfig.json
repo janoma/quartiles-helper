@@ -15,10 +15,10 @@
     "checkJs": true,
 
     /* Bundled projects */
-    "lib": ["dom", "dom.iterable", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "noEmit": true,
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],
     "incremental": true,
