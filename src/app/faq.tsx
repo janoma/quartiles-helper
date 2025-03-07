@@ -29,7 +29,7 @@ export default function Questions() {
             </p>
             <p>
               The app tries to match every permutation of one, two, three and
-              four of the given strings, with words from those sources.
+              four of the given strings with words from those sources.
             </p>
           </AccordionContent>
         </AccordionItem>
