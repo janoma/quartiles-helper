@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     name: "Alejandro Mallea",
     url: "https://janoma.dev",
   },
+  keywords: ["quartiles", "word puzzle"],
   robots: {
     follow: true,
     googleBot: {
