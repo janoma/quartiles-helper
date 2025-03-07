@@ -47,7 +47,7 @@ export default function RootLayout({
         <footer className="mx-auto mt-8 mb-8 flex max-w-sm items-center justify-center gap-1 text-xs sm:mt-16">
           Created by <Link href="https://janoma.dev">janoma</Link>
           <Dot />
-          <Link href="">
+          <Link href="https://github.com/janoma/quartiles-helper">
             <svg
               className="text-github-fill h-4"
               viewBox="0 0 98 96"
