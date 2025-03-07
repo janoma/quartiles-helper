@@ -103,7 +103,8 @@ export default function Helper() {
         console.error(error);
       }
     }
-  }, [form, keys]);
+    /* No dependencies! Otherwise we might lose unsaved changes. */
+  }, []);
 
   return (
     <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
@@ -155,7 +156,7 @@ export default function Helper() {
         <h2 className="text-xl font-bold" id="suggestions">
           {state.words.length} Suggestions Found
         </h2>
-        <div className="h-80 overflow-y-auto">
+        <div className="max-h-72 overflow-y-auto">
           {state.words.map((entry) => (
             <div
               className="flex justify-between border-b border-b-gray-300 pt-2 pb-1"

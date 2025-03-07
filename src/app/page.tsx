@@ -1,8 +1,9 @@
+import Questions from "./faq";
 import Helper from "./helper";
 
 export default async function HomePage() {
   return (
-    <main className="mt-8 flex flex-col items-center justify-center p-2">
+    <main className="mt-8 flex flex-col items-center justify-center p-4">
       <h1 className="mb-8 inline-flex items-baseline gap-1 text-center text-xl font-bold sm:text-3xl">
         <svg
           fill="currentcolor"
@@ -15,6 +16,7 @@ export default async function HomePage() {
         News+ <span className="text-quartiles-blue">Quartiles</span> Helper
       </h1>
       <Helper />
+      <Questions />
     </main>
   );
 }
