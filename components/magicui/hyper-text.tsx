@@ -133,7 +133,7 @@ export function HyperText({
     }, intervalDuration);
 
     return () => clearInterval(interval);
-  }, [children, duration, isAnimating, characterSet]);
+  }, [children, duration, isAnimating, characterSet, prefersReducedMotion]);
 
   return (
     <MotionComponent

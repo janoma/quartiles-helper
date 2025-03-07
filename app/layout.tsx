@@ -1,8 +1,8 @@
-import "@/src/index.css";
+import "@/index.css";
 
 import { GeistSans } from "geist/font/sans";
 import { Dot } from "lucide-react";
-import { Viewport, type Metadata } from "next";
+import { type Metadata, type Viewport } from "next";
 import Link from "next/link";
 import DarkModeSwitch from "./dark-mode";
 
