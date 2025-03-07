@@ -8,7 +8,7 @@ import DarkModeSwitch from "./dark-mode";
 
 export const metadata: Metadata = {
   title: "Quartiles helper",
-  description: "Get a little push when playing Quartiles from Apple News+.",
+  description: "Assisting tool for playing Quartiles from Apple News+.",
   authors: {
     name: "Alejandro Mallea",
     url: "https://janoma.dev",
