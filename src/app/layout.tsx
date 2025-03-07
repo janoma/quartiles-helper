@@ -5,7 +5,7 @@ import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Quartiles helper",
-  description: "",
+  description: "Get a little push when playing Quartiles",
 };
 
 export default function RootLayout({

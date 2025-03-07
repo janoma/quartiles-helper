@@ -4,9 +4,11 @@ import { DictionarySingleton } from "@/lib/dictionary";
 import pluralsMap from "english-plurals-list/dist/plurals.json";
 import { schema } from "./formSchema";
 
+type Word = { word: string; category: "single" | "double" | "triple" | "quad" };
+
 export type WordsState = {
   error?: string;
-  words: string[];
+  words: Word[];
 };
 
 const plurals = Object.values(pluralsMap);
@@ -38,17 +40,34 @@ export async function onSubmitAction(
     triples.filter((b) => !b.includes(a)).map((b) => a + b),
   );
 
-  const permutations = [...singles, ...doubles, ...triples, ...quads];
-
-  const wordNetCandidates = dictionary.searchSimpleFor(permutations).keys();
-
-  const pluralCandidates = plurals.filter((word) =>
-    permutations.includes(word),
-  );
+  const candidates = [
+    ...[
+      ...dictionary.searchSimpleFor(singles).keys(),
+      ...plurals.filter((word) => singles.includes(word)),
+    ]
+      .filter(onlyUnique)
+      .map((word) => ({ word, category: "single" }) satisfies Word),
+    ...[
+      ...dictionary.searchSimpleFor(doubles).keys(),
+      ...plurals.filter((word) => doubles.includes(word)),
+    ]
+      .filter(onlyUnique)
+      .map((word) => ({ word, category: "double" }) satisfies Word),
+    ...[
+      ...dictionary.searchSimpleFor(triples).keys(),
+      ...plurals.filter((word) => triples.includes(word)),
+    ]
+      .filter(onlyUnique)
+      .map((word) => ({ word, category: "triple" }) satisfies Word),
+    ...[
+      ...dictionary.searchSimpleFor(quads).keys(),
+      ...plurals.filter((word) => quads.includes(word)),
+    ]
+      .filter(onlyUnique)
+      .map((word) => ({ word, category: "quad" }) satisfies Word),
+  ].toSorted((lhs, rhs) => lhs.word.localeCompare(rhs.word));
 
   return {
-    words: [...wordNetCandidates, ...pluralCandidates]
-      .filter(onlyUnique)
-      .toSorted(),
+    words: candidates,
   };
 }
