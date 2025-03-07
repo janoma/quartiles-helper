@@ -1,6 +1,6 @@
 "use server";
 
-import { getDictionary } from "@/lib/dictionary";
+import { DictionarySingleton } from "@/lib/dictionary";
 import pluralsMap from "english-plurals-list/dist/plurals.json";
 import { schema } from "./formSchema";
 
@@ -9,7 +9,6 @@ export type WordsState = {
   words: string[];
 };
 
-const dictionary = await getDictionary();
 const plurals = Object.values(pluralsMap);
 
 function onlyUnique<T>(value: T, index: number, self: T[]) {
@@ -20,6 +19,8 @@ export async function onSubmitAction(
   _prevState: WordsState,
   data: FormData,
 ): Promise<WordsState> {
+  const dictionary = await DictionarySingleton.getInstance();
+
   const formData = Object.fromEntries(data);
   const parsed = schema.parse(formData);
 
