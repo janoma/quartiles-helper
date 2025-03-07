@@ -76,7 +76,7 @@ export default function Questions() {
               </Link>
               ). Regular English plurals obey simple rules (suffixes{" "}
               <em>&ndash;s</em>, <em>&ndash;es</em> and replacing <em>y</em>{" "}
-              with <em>&ndash;ies</em>), and that logic should be simple to
+              with <em>&ndash;ies</em>), and that logic should be easy enough to
               incorporate.
             </p>
             <p>
