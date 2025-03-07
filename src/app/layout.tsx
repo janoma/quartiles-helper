@@ -2,13 +2,38 @@ import "@/src/index.css";
 
 import { GeistSans } from "geist/font/sans";
 import { Dot } from "lucide-react";
-import { type Metadata } from "next";
+import { Viewport, type Metadata } from "next";
 import Link from "next/link";
 import DarkModeSwitch from "./dark-mode";
 
 export const metadata: Metadata = {
   title: "Quartiles helper",
-  description: "Get a little push when playing Quartiles",
+  description: "Get a little push when playing Quartiles from Apple News+.",
+  authors: {
+    name: "Alejandro Mallea",
+    url: "https://janoma.dev",
+  },
+  robots: {
+    follow: true,
+    googleBot: {
+      follow: true,
+      index: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+      noimageindex: false,
+    },
+    index: true,
+    nocache: false,
+  },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light dark",
+  height: "device-height",
+  initialScale: 1,
+  themeColor: "#3478f6",
+  width: "device-width",
 };
 
 export default function RootLayout({
