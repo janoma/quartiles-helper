@@ -11,9 +11,24 @@ import DarkModeSwitch from "./dark-mode";
 export const metadata: Metadata = {
   title: "Quartiles helper",
   description: "Assisting tool for playing Quartiles from Apple News+.",
+  metadataBase: new URL("https://quartiles-helper.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
   authors: {
     name: "Alejandro Mallea",
     url: "https://janoma.dev",
+  },
+  openGraph: {
+    images: [
+      {
+        url: "https://quartiles-helper.vercel.app/quartiles-helper.png",
+        width: 256,
+        height: 256,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
   keywords: ["quartiles", "word puzzle"],
   robots: {
