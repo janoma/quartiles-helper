@@ -24,9 +24,16 @@ export async function onSubmitAction(
   const dictionary = await DictionarySingleton.getInstance();
 
   const formData = Object.fromEntries(data);
-  const parsed = schema.parse(formData);
+  const parsed = schema.safeParse(formData);
 
-  const singles = Object.values(parsed);
+  if (!parsed.success) {
+    return {
+      error: "Invalid input. Please fill all fields.",
+      words: [],
+    };
+  }
+
+  const singles = Object.values(parsed.data);
 
   const doubles = singles.flatMap((a) =>
     singles.filter((b) => b !== a).map((b) => a + b),
