@@ -6,7 +6,12 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
+import {
+  type ClipboardEventHandler,
+  useActionState,
+  useEffect,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { HyperText } from "../components/magicui/hyper-text";
@@ -108,13 +113,25 @@ export default function Helper() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handlePaste: ClipboardEventHandler<HTMLDivElement> = (e) => {
+    const pastedData = e.clipboardData.getData("text");
+    const words = pastedData.split(" ");
+
+    for (const [index, key] of keys.entries()) {
+      if (index < words.length) {
+        form.setValue(key as keyof z.output<typeof schema>, words[index]!);
+      }
+    }
+    e.preventDefault();
+  };
+
   return (
     <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
       <div className="flex rounded-lg border p-4 shadow-lg sm:p-8">
         <Form {...form}>
           {state.error && <div className="text-red-500">{state.error}</div>}
           <form action={actionIntercept} className="grid items-center">
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-2" onPaste={handlePaste}>
               {keys.map((key) => (
                 <FormField
                   control={form.control}
@@ -128,6 +145,8 @@ export default function Helper() {
                             "bg-muted/50 h-12 max-w-16 border-b-2 border-b-gray-300",
                             "text-center font-semibold dark:border-b-gray-700",
                           )}
+                          maxLength={4}
+                          minLength={2}
                           {...field}
                         />
                       </FormControl>
