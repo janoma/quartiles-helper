@@ -5,17 +5,43 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
+import { HyperText } from "../components/magicui/hyper-text";
 import { schema } from "./formSchema";
 import { onSubmitAction } from "./formSubmit";
+
+const rotation = [
+  "clueless",
+  "lost",
+  "confused",
+  "helpless",
+  "stuck",
+  "hopeless",
+  "bewildered",
+  "dumb",
+  "perplexed",
+  "puzzled",
+  "suffering",
+];
 
 export default function Helper() {
   const [state, formAction, isPending] = useActionState(onSubmitAction, {
     error: "",
     words: [],
   });
+
+  const [index, setIndex] = useState(0);
+  const rotatedWord = rotation[index]!;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((index + 1) % rotation.length);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [index]);
 
   const keys = Object.keys(schema.shape);
 
@@ -49,11 +75,22 @@ export default function Helper() {
                 />
               ))}
             </div>
-            <Button className="mt-4" type="submit" disabled={isPending}>
+            <Button className="mt-4 gap-0" type="submit" disabled={isPending}>
               {isPending ? (
                 <Loader2 className="animate-spin" />
               ) : (
-                "Help me, I'm clueless"
+                <>
+                  Help me, I&apos;m{" "}
+                  <HyperText
+                    as="span"
+                    animateOnHover={false}
+                    className="ps-1"
+                    key={index}
+                    startOnView
+                  >
+                    {rotatedWord}
+                  </HyperText>
+                </>
               )}
             </Button>
           </form>
