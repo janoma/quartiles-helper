@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, type MotionProps } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
 
 type CharacterSet = string[] | readonly string[];
 
@@ -53,6 +54,14 @@ export function HyperText({
   const iterationCount = useRef(0);
   const elementRef = useRef<HTMLElement>(null);
 
+  const prefersReducedMotion = useMediaQuery(
+    "(prefers-reduced-motion: reduce)",
+    {
+      defaultValue: false,
+      initializeWithValue: false,
+    },
+  );
+
   const handleAnimationTrigger = () => {
     if (animateOnHover && !isAnimating) {
       iterationCount.current = 0;
@@ -90,7 +99,16 @@ export function HyperText({
 
   // Handle scramble animation
   useEffect(() => {
-    if (!isAnimating) return;
+    if (!isAnimating) {
+      return;
+    }
+
+    if (prefersReducedMotion) {
+      // No visual animation on reduced motion
+      setDisplayText(children.split(""));
+      setIsAnimating(false);
+      return;
+    }
 
     const intervalDuration = duration / (children.length * 10);
     const maxIterations = children.length;
