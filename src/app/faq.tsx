@@ -13,7 +13,7 @@ export default function Questions() {
       <Accordion
         type="single"
         collapsible
-        className="mt-4 w-full max-w-sm sm:max-w-md"
+        className="mt-4 w-full max-w-xs sm:max-w-md"
       >
         <AccordionItem value="question-1">
           <AccordionTrigger>How does it work?</AccordionTrigger>

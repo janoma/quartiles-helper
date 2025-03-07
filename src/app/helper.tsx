@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
@@ -122,7 +123,10 @@ export default function Helper() {
                     <FormItem>
                       <FormControl>
                         <Input
-                          className="h-12 max-w-16 border-b-2 border-b-gray-300 text-center font-semibold"
+                          className={cn(
+                            "bg-muted/50 h-12 max-w-16 border-b-2 border-b-gray-300",
+                            "text-center font-semibold dark:border-b-gray-700",
+                          )}
                           {...field}
                         />
                       </FormControl>
