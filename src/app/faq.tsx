@@ -51,26 +51,39 @@ export default function Questions() {
               doesn&apos;t accept, especially chemical elements which account
               for over 100 two-letter combinations.
             </p>
+            <p>
+              Keep in mind this is a <em>helper</em>, not a <em>solver</em>.
+            </p>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="question-3">
-          <AccordionTrigger>Are there improvements coming?</AccordionTrigger>
-          <AccordionContent>
-            Probably. The plurals list is only for irregular plurals, and the
-            dictionary does not contain them, so at the moment it doesn&apos;t
-            find even seemingly simple words like <em>lakes</em> (
-            <Link href="https://apple.news/JjljapuXyTO_fCQHxK2dPLQ">
-              March 4th, 2025
-            </Link>
-            ).
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="question-4">
           <AccordionTrigger>Can I contribute?</AccordionTrigger>
           <AccordionContent>
             Yes! Pull requests are welcome if you know what that means. If not,
             my email is on my website, just drop me a note with suggestions or
             comments.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="question-4">
+          <AccordionTrigger>How can it be improved?</AccordionTrigger>
+          <AccordionContent>
+            <p>
+              The plurals list is only for irregular plurals, and the dictionary
+              does not contain them, so at the moment it doesn&apos;t find even
+              seemingly simple words like <em>lakes</em> (
+              <Link href="https://apple.news/JjljapuXyTO_fCQHxK2dPLQ">
+                March 4th, 2025
+              </Link>
+              ). Regular English plurals obey simple rules (suffixes{" "}
+              <em>&ndash;s</em>, <em>&ndash;es</em> and replacing <em>y</em>{" "}
+              with <em>&ndash;ies</em>), and that logic should be simple to
+              incorporate.
+            </p>
+            <p>
+              Also, there are so many two-letter words that are not accepted by
+              the game that we might as well create a list of them, so we can
+              discard them.
+            </p>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
