@@ -1,5 +1,6 @@
 import "@/index.css";
 
+import { Analytics } from "@vercel/analytics/react";
 import { GeistSans } from "geist/font/sans";
 import { Dot } from "lucide-react";
 import { type Metadata, type Viewport } from "next";
@@ -63,6 +64,7 @@ export default function RootLayout({
           </Link>
         </footer>
         <DarkModeSwitch />
+        <Analytics />
       </body>
     </html>
   );
