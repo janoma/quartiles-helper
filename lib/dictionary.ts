@@ -7,7 +7,11 @@ export class DictionarySingleton {
 
   public static async getInstance(): Promise<Dictionary> {
     if (!DictionarySingleton.instance) {
-      DictionarySingleton.instance = new Dictionary("lib/en-wordnet");
+      DictionarySingleton.instance = new Dictionary(
+        process.env.NODE_ENV === "development"
+          ? "public/en-wordnet"
+          : "/en-wordnet",
+      );
       await DictionarySingleton.instance.init();
     }
     return DictionarySingleton.instance;
