@@ -2,6 +2,7 @@ import "@/index.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { VercelToolbar } from "@vercel/toolbar/next";
 import { GeistSans } from "geist/font/sans";
 import { Dot } from "lucide-react";
 import { type Metadata, type Viewport } from "next";
@@ -57,6 +58,8 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const shouldInjectToolbar = process.env.NODE_ENV === "development";
+
   return (
     <html lang="en" className={GeistSans.variable}>
       <body>
@@ -82,6 +85,7 @@ export default function RootLayout({
         <DarkModeSwitch />
         <Analytics />
         <SpeedInsights />
+        {shouldInjectToolbar && <VercelToolbar />}
       </body>
     </html>
   );

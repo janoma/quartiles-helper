@@ -25,6 +25,7 @@
     "@tailwindcss/postcss": "^4.0.11",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "@vercel/toolbar": "^0.1.34",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "en-dictionary": "^2.0.3",
