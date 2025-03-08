@@ -6,6 +6,9 @@ const config = withVercelToolbar()({
   experimental: {
     turbo: {},
   },
+  outputFileTracingIncludes: {
+    "en-wordnet": ["en-wordnet/**/*"],
+  },
   webpack: (config, { isServer }) => {
     if (isServer) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -13,9 +16,9 @@ const config = withVercelToolbar()({
         new CopyWebpackPlugin({
           patterns: [
             {
-              from: "en-wordnet/",
+              from: "en-wordnet",
               // Will be available in .next/server/en-wordnet/
-              to: "en-wordnet/",
+              to: "en-wordnet",
             },
           ],
         }),
