@@ -16,7 +16,6 @@ import {
   type ClipboardEventHandler,
   useActionState,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { useForm } from "react-hook-form";
@@ -133,18 +132,11 @@ export default function Helper() {
     e.preventDefault();
   };
 
-  const formRef = useRef<HTMLFormElement>(null);
-
   return (
     <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
       <div className="flex rounded-lg border p-4 shadow-lg sm:p-8">
         <Form {...form}>
-          <form
-            action={actionIntercept}
-            className="grid items-center"
-            ref={formRef}
-            onSubmit={form.handleSubmit(() => formRef.current?.submit())}
-          >
+          <form action={actionIntercept} className="grid items-center">
             <div className="grid grid-cols-4 gap-2" onPaste={handlePaste}>
               <h2
                 className="col-span-4 flex items-center gap-1 text-xl font-bold"
