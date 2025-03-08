@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { withVercelToolbar } from "@vercel/toolbar/plugins/next";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 
@@ -9,7 +8,7 @@ const config = withVercelToolbar()({
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       config.plugins.push(
         new CopyWebpackPlugin({
           patterns: [
