@@ -10,7 +10,9 @@ export default async function getDictionarySingleton(): Promise<Dictionary> {
 
     public static async getInstance(): Promise<Dictionary> {
       if (!DictionarySingleton.instance) {
-        DictionarySingleton.instance = new Dictionary("en-wordnet");
+        DictionarySingleton.instance = new Dictionary(
+          `${process.cwd()}/en-wordnet`,
+        );
         await DictionarySingleton.instance.init();
       }
       return DictionarySingleton.instance;
