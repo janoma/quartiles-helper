@@ -3,9 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { CircleHelp, Loader2 } from "lucide-react";
+import Image from "next/image";
 import {
   type ClipboardEventHandler,
   useActionState,
@@ -16,6 +22,7 @@ import {
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { HyperText } from "../components/magicui/hyper-text";
+import example from "./example.png";
 import { schema } from "./formSchema";
 import { onSubmitAction } from "./formSubmit";
 
@@ -139,6 +146,24 @@ export default function Helper() {
             onSubmit={form.handleSubmit(() => formRef.current?.submit())}
           >
             <div className="grid grid-cols-4 gap-2" onPaste={handlePaste}>
+              <h2
+                className="col-span-4 flex items-center gap-1 text-xl font-bold"
+                id="user-input"
+              >
+                Enter a game&apos;s strings
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <CircleHelp />
+                  </PopoverTrigger>
+                  <PopoverContent className="w-64 sm:w-88">
+                    <div className="flex flex-col gap-2 text-sm">
+                      Simply copy the text from the cells of a game and click
+                      the &ldquo;Help&rdquo; button.
+                      <Image src={example} alt="Example" />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </h2>
               {state.error && (
                 <div className="text-quartiles-red dark:text-destructive-foreground col-span-4 max-w-72 truncate">
                   {state.error}
