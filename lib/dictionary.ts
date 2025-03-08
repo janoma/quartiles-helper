@@ -15,7 +15,7 @@ export default async function getDictionarySingleton(): Promise<Dictionary> {
         console.log("CWD", process.cwd());
         console.log("NODE_ENV", process.env.NODE_ENV);
         DictionarySingleton.instance = new Dictionary(
-          isProduction ? ".next/server/en-wordnet" : "en-wordnet",
+          isProduction ? "/var/task/.next/server/en-wordnet" : "en-wordnet",
         );
         await DictionarySingleton.instance.init();
       }
