@@ -151,7 +151,11 @@ export default function Helper() {
                     <div className="flex flex-col gap-2 text-sm">
                       Simply copy the text from the cells of a game and click
                       the &ldquo;Help&rdquo; button.
-                      <Image src={example} alt="Example" />
+                      <Image
+                        className="rounded-md"
+                        src={example}
+                        alt="Example"
+                      />
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -184,7 +188,11 @@ export default function Helper() {
                 />
               ))}
             </div>
-            <Button className="mt-4 gap-0" type="submit" disabled={isPending}>
+            <Button
+              className="bg-quartiles-blue mt-4 gap-0"
+              type="submit"
+              disabled={isPending}
+            >
               {isPending ? (
                 <Loader2 className="animate-spin" />
               ) : (
