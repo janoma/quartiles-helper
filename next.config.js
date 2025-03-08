@@ -7,7 +7,7 @@ const config = withVercelToolbar()({
     turbo: {},
   },
   outputFileTracingIncludes: {
-    "en-wordnet": ["en-wordnet/**/*"],
+    "/en-wordnet": ["./en-wordnet/**/*"],
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
