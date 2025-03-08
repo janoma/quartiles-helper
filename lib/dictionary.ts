@@ -10,11 +10,7 @@ export default async function getDictionarySingleton(): Promise<Dictionary> {
 
     public static async getInstance(): Promise<Dictionary> {
       if (!DictionarySingleton.instance) {
-        DictionarySingleton.instance = new Dictionary(
-          process.env.NODE_ENV === "development"
-            ? "public/en-wordnet"
-            : "/en-wordnet",
-        );
+        DictionarySingleton.instance = new Dictionary("en-wordnet");
         await DictionarySingleton.instance.init();
       }
       return DictionarySingleton.instance;
