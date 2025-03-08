@@ -1,6 +1,6 @@
 "use server";
 
-import { DictionarySingleton } from "@/lib/dictionary";
+import getDictionarySingleton from "@/lib/dictionary";
 import pluralsMap from "english-plurals-list/dist/plurals.json";
 import { schema } from "./formSchema";
 
@@ -21,7 +21,7 @@ export async function onSubmitAction(
   _prevState: WordsState,
   data: FormData,
 ): Promise<WordsState> {
-  const dictionary = await DictionarySingleton.getInstance();
+  const dictionary = await getDictionarySingleton();
 
   const formData = Object.fromEntries(data);
   const parsed = schema.safeParse(formData);
