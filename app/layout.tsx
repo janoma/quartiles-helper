@@ -68,6 +68,7 @@ export default function RootLayout({
           Created by <Link href="https://janoma.dev">janoma</Link>
           <Dot />
           <Link href="https://github.com/janoma/quartiles-helper">
+            <span className="sr-only">Project&apos;s repository on GitHub</span>
             <svg
               className="text-github-fill h-4"
               viewBox="0 0 98 96"

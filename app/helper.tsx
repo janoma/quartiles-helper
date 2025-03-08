@@ -144,7 +144,7 @@ export default function Helper() {
               >
                 Enter a game&apos;s strings
                 <Popover>
-                  <PopoverTrigger asChild>
+                  <PopoverTrigger aria-label="Help">
                     <CircleHelp />
                   </PopoverTrigger>
                   <PopoverContent className="w-64 sm:w-88">
@@ -180,6 +180,7 @@ export default function Helper() {
                           )}
                           maxLength={4}
                           minLength={2}
+                          aria-label={field.name}
                           {...field}
                         />
                       </FormControl>
@@ -189,7 +190,7 @@ export default function Helper() {
               ))}
             </div>
             <Button
-              className="bg-quartiles-blue mt-4 gap-0"
+              className="dark:bg-quartiles-blue/93 mt-4 gap-0 dark:text-white"
               type="submit"
               disabled={isPending}
             >
