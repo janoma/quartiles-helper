@@ -14,6 +14,7 @@ const config = withVercelToolbar()({
           patterns: [
             {
               from: "en-wordnet/",
+              // Will be available in .next/server/en-wordnet/
               to: "en-wordnet/",
             },
           ],
