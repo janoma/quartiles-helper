@@ -10,7 +10,6 @@ export default async function getDictionarySingleton(): Promise<Dictionary> {
     private static instance: Dictionary | undefined;
 
     public static async getInstance(): Promise<Dictionary> {
-      const isProduction = process.env.NODE_ENV === "production";
       let files = await promises.readdir(`${process.cwd()}`);
       console.log("CWD files", files);
       files = await promises.readdir(`${process.cwd()}/.next`);
@@ -21,9 +20,7 @@ export default async function getDictionarySingleton(): Promise<Dictionary> {
       if (!DictionarySingleton.instance) {
         console.log("CWD", process.cwd());
         console.log("NODE_ENV", process.env.NODE_ENV);
-        DictionarySingleton.instance = new Dictionary(
-          isProduction ? ".next/standalone/en-wordnet" : "en-wordnet",
-        );
+        DictionarySingleton.instance = new Dictionary("en-wordnet");
         await DictionarySingleton.instance.init();
       }
       return DictionarySingleton.instance;
