@@ -1,7 +1,6 @@
 import "@/index.css";
 
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { VercelToolbar } from "@vercel/toolbar/next";
 import { GeistSans } from "geist/font/sans";
 import { Dot } from "lucide-react";
@@ -85,7 +84,6 @@ export default function RootLayout({
         </footer>
         <DarkModeSwitch />
         <Analytics />
-        <SpeedInsights />
         {shouldInjectToolbar && <VercelToolbar />}
       </body>
     </html>
