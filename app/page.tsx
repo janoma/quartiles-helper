@@ -1,13 +1,13 @@
 import Questions from "./faq";
 import Helper from "./helper";
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <main className="mt-8 flex flex-col items-center justify-center p-4">
       <h1 className="mb-8 inline-flex items-baseline gap-1 text-center text-xl font-bold tracking-tighter sm:text-3xl">
         <svg
-          fill="currentcolor"
           className="h-4 sm:h-6"
+          fill="currentcolor"
           viewBox="0 0 814 1000"
           xmlns="http://www.w3.org/2000/svg"
         >

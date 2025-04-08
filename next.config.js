@@ -1,7 +1,8 @@
-import { withVercelToolbar } from "@vercel/toolbar/plugins/next";
-
 /** @type {import("next").NextConfig} */
-const config = withVercelToolbar()({
+const config = {
+  eslint: {
+    dirs: ["app", "components", "lib"],
+  },
   experimental: {
     turbo: {},
   },
@@ -16,6 +17,6 @@ const config = withVercelToolbar()({
      */
     "*": ["en-wordnet/**/*"],
   },
-});
+};
 
 export default config;

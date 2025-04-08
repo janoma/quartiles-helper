@@ -11,9 +11,9 @@ export default function Questions() {
     <>
       <h2 className="mt-8 text-xl font-bold">FAQs</h2>
       <Accordion
-        type="single"
-        collapsible
         className="mt-4 w-full max-w-xs sm:max-w-md"
+        collapsible
+        type="single"
       >
         <AccordionItem value="question-1">
           <AccordionTrigger>How does it work?</AccordionTrigger>

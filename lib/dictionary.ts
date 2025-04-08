@@ -1,10 +1,10 @@
 "use server";
 
 import Dictionary from "en-dictionary";
-
 import "server-only";
 
 export default async function getDictionarySingleton(): Promise<Dictionary> {
+  // eslint-disable-next-line @typescript-eslint/no-extraneous-class
   class DictionarySingleton {
     private static instance: Dictionary | undefined;
 

@@ -5,25 +5,25 @@ import { AnimatePresence, motion, type MotionProps } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
-type CharacterSet = string[] | readonly string[];
+type CharacterSet = readonly string[] | string[];
 
 interface HyperTextProps extends MotionProps {
+  /** Whether to trigger animation on hover */
+  animateOnHover?: boolean;
+  /** Component to render as - defaults to div */
+  as?: React.ElementType;
+  /** Custom character set for scramble effect. Defaults to lowercase alphabet */
+  characterSet?: CharacterSet;
   /** The text content to be animated */
   children: string;
   /** Optional className for styling */
   className?: string;
-  /** Duration of the animation in milliseconds */
-  duration?: number;
   /** Delay before animation starts in milliseconds */
   delay?: number;
-  /** Component to render as - defaults to div */
-  as?: React.ElementType;
+  /** Duration of the animation in milliseconds */
+  duration?: number;
   /** Whether to start animation when element comes into view */
   startOnView?: boolean;
-  /** Whether to trigger animation on hover */
-  animateOnHover?: boolean;
-  /** Custom character set for scramble effect. Defaults to lowercase alphabet */
-  characterSet?: CharacterSet;
 }
 
 const DEFAULT_CHARACTER_SET = Object.freeze(
@@ -33,14 +33,14 @@ const DEFAULT_CHARACTER_SET = Object.freeze(
 const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
 
 export function HyperText({
+  animateOnHover = true,
+  as: Component = "div",
+  characterSet = DEFAULT_CHARACTER_SET,
   children,
   className,
-  duration = 800,
   delay = 0,
-  as: Component = "div",
+  duration = 800,
   startOnView = false,
-  animateOnHover = true,
-  characterSet = DEFAULT_CHARACTER_SET,
   ...props
 }: HyperTextProps) {
   const MotionComponent = motion.create(Component, {
@@ -75,7 +75,9 @@ export function HyperText({
       const startTimeout = setTimeout(() => {
         setIsAnimating(true);
       }, delay);
-      return () => clearTimeout(startTimeout);
+      return () => {
+        clearTimeout(startTimeout);
+      };
     }
 
     const observer = new IntersectionObserver(
@@ -87,14 +89,16 @@ export function HyperText({
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "-30% 0px -30% 0px" },
+      { rootMargin: "-30% 0px -30% 0px", threshold: 0.1 },
     );
 
     if (elementRef.current) {
       observer.observe(elementRef.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, [delay, startOnView]);
 
   // Handle scramble animation
@@ -132,19 +136,21 @@ export function HyperText({
       }
     }, intervalDuration);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, [children, duration, isAnimating, characterSet, prefersReducedMotion]);
 
   return (
     <MotionComponent
-      ref={elementRef}
       className={cn("overflow-hidden", className)}
       onMouseEnter={handleAnimationTrigger}
+      ref={elementRef}
       {...props}
     >
       <AnimatePresence>
         {displayText.map((letter, index) => (
-          <motion.span key={index} className={cn({ "w-3": letter === " " })}>
+          <motion.span className={cn({ "w-3": letter === " " })} key={index}>
             {letter}
           </motion.span>
         ))}

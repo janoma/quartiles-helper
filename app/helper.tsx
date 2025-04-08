@@ -1,5 +1,6 @@
 "use client";
 
+import { HyperText } from "@/components/magicui/hyper-text";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -20,7 +21,7 @@ import {
 } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
-import { HyperText } from "../components/magicui/hyper-text";
+
 import example from "./example.png";
 import { schema } from "./formSchema";
 import { onSubmitAction } from "./formSubmit";
@@ -39,35 +40,6 @@ const rotation = [
   "suffering",
 ];
 
-function pointsForKey(key: string) {
-  switch (key) {
-    case "single":
-      return (
-        <div className="text-quartiles-blue place-self-center font-medium">
-          1
-        </div>
-      );
-    case "double":
-      return (
-        <div className="text-quartiles-blue place-self-center font-medium">
-          2
-        </div>
-      );
-    case "triple":
-      return (
-        <div className="text-quartiles-blue place-self-center font-medium">
-          4
-        </div>
-      );
-    case "quad":
-      return (
-        <div className="bg-quartiles-blue place-self-center rounded px-1 text-center font-medium text-white">
-          8
-        </div>
-      );
-  }
-}
-
 export default function Helper() {
   const [state, formAction, isPending] = useActionState(onSubmitAction, {
     error: "",
@@ -75,6 +47,7 @@ export default function Helper() {
   });
 
   const [index, setIndex] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const rotatedWord = rotation[index]!;
 
   useEffect(() => {
@@ -82,14 +55,16 @@ export default function Helper() {
       setIndex((index + 1) % rotation.length);
     }, 10000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, [index]);
 
   const keys = Object.keys(schema.shape);
 
   const form = useForm<z.output<typeof schema>>({
-    resolver: zodResolver(schema),
     defaultValues: Object.fromEntries(keys.map((key) => [key, ""])),
+    resolver: zodResolver(schema),
   });
 
   /** Save words to local storage before continuing to process. */
@@ -126,6 +101,7 @@ export default function Helper() {
 
     for (const [index, key] of keys.entries()) {
       if (index < words.length) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         form.setValue(key as keyof z.output<typeof schema>, words[index]!);
       }
     }
@@ -152,9 +128,9 @@ export default function Helper() {
                       Simply copy the text from the cells of a game and click
                       the &ldquo;Help&rdquo; button.
                       <Image
+                        alt="Example"
                         className="rounded-md"
                         src={example}
-                        alt="Example"
                       />
                     </div>
                   </PopoverContent>
@@ -174,13 +150,13 @@ export default function Helper() {
                     <FormItem>
                       <FormControl>
                         <Input
+                          aria-label={field.name}
                           className={cn(
                             "bg-muted/50 h-12 max-w-16 border-b-2 border-b-gray-300",
                             "text-center font-semibold dark:border-b-gray-700",
                           )}
                           maxLength={4}
                           minLength={2}
-                          aria-label={field.name}
                           {...field}
                         />
                       </FormControl>
@@ -191,8 +167,8 @@ export default function Helper() {
             </div>
             <Button
               className="dark:bg-quartiles-blue/93 mt-4 gap-0 dark:text-white"
-              type="submit"
               disabled={isPending}
+              type="submit"
             >
               {isPending ? (
                 <Loader2 className="animate-spin" />
@@ -200,8 +176,8 @@ export default function Helper() {
                 <>
                   Help me, I&apos;m{" "}
                   <HyperText
-                    as="span"
                     animateOnHover={false}
+                    as="span"
                     className="ps-1"
                     key={index}
                     startOnView
@@ -234,4 +210,33 @@ export default function Helper() {
       </div>
     </div>
   );
+}
+
+function pointsForKey(key: string) {
+  switch (key) {
+    case "double":
+      return (
+        <div className="text-quartiles-blue place-self-center font-medium">
+          2
+        </div>
+      );
+    case "quad":
+      return (
+        <div className="bg-quartiles-blue place-self-center rounded px-1 text-center font-medium text-white">
+          8
+        </div>
+      );
+    case "single":
+      return (
+        <div className="text-quartiles-blue place-self-center font-medium">
+          1
+        </div>
+      );
+    case "triple":
+      return (
+        <div className="text-quartiles-blue place-self-center font-medium">
+          4
+        </div>
+      );
+  }
 }

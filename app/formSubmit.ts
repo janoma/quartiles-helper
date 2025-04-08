@@ -2,20 +2,17 @@
 
 import getDictionarySingleton from "@/lib/dictionary";
 import pluralsMap from "english-plurals-list/dist/plurals.json";
-import { schema } from "./formSchema";
 
-type Word = { word: string; category: "single" | "double" | "triple" | "quad" };
+import { schema } from "./formSchema";
 
 export type WordsState = {
   error?: string;
   words: Word[];
 };
 
-const plurals = Object.values(pluralsMap);
+type Word = { category: "double" | "quad" | "single" | "triple"; word: string };
 
-function onlyUnique<T>(value: T, index: number, self: T[]) {
-  return self.indexOf(value) === index;
-}
+const plurals = Object.values(pluralsMap);
 
 export async function onSubmitAction(
   _prevState: WordsState,
@@ -53,28 +50,32 @@ export async function onSubmitAction(
       ...plurals.filter((word) => singles.includes(word)),
     ]
       .filter(onlyUnique)
-      .map((word) => ({ word, category: "single" }) satisfies Word),
+      .map((word) => ({ category: "single", word }) satisfies Word),
     ...[
       ...dictionary.searchSimpleFor(doubles).keys(),
       ...plurals.filter((word) => doubles.includes(word)),
     ]
       .filter(onlyUnique)
-      .map((word) => ({ word, category: "double" }) satisfies Word),
+      .map((word) => ({ category: "double", word }) satisfies Word),
     ...[
       ...dictionary.searchSimpleFor(triples).keys(),
       ...plurals.filter((word) => triples.includes(word)),
     ]
       .filter(onlyUnique)
-      .map((word) => ({ word, category: "triple" }) satisfies Word),
+      .map((word) => ({ category: "triple", word }) satisfies Word),
     ...[
       ...dictionary.searchSimpleFor(quads).keys(),
       ...plurals.filter((word) => quads.includes(word)),
     ]
       .filter(onlyUnique)
-      .map((word) => ({ word, category: "quad" }) satisfies Word),
+      .map((word) => ({ category: "quad", word }) satisfies Word),
   ].toSorted((lhs, rhs) => lhs.word.localeCompare(rhs.word));
 
   return {
     words: candidates,
   };
+}
+
+function onlyUnique<T>(value: T, index: number, self: T[]) {
+  return self.indexOf(value) === index;
 }
