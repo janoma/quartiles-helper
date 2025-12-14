@@ -1,7 +1,5 @@
 "use client";
 
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
 import { type Root } from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
@@ -14,6 +12,9 @@ import {
   useFormContext,
   useFormState,
 } from "react-hook-form";
+
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 const Form = FormProvider;
 
@@ -133,7 +134,7 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof Root>) {
 
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error.message ?? "") : props.children;
+  const body = error ? (error.message ?? "") : props.children;
 
   if (!body) {
     return null;

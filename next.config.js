@@ -1,11 +1,5 @@
 /** @type {import("next").NextConfig} */
 const config = {
-  eslint: {
-    dirs: ["app", "components", "lib"],
-  },
-  experimental: {
-    turbo: {},
-  },
   output: "standalone",
   outputFileTracingIncludes: {
     /**

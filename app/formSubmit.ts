@@ -1,7 +1,8 @@
 "use server";
 
-import getDictionarySingleton from "@/lib/dictionary";
 import pluralsMap from "english-plurals-list/dist/plurals.json";
+
+import getDictionarySingleton from "@/lib/dictionary";
 
 import { schema } from "./formSchema";
 

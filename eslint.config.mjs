@@ -1,21 +1,24 @@
-import { FlatCompat } from "@eslint/eslintrc";
+// @ts-check
+
 import eslint from "@eslint/js";
+import nextVitals from "eslint-config-next/core-web-vitals";
 import eslintConfigPrettier from "eslint-config-prettier";
 import perfectionist from "eslint-plugin-perfectionist";
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint, { parser } from "typescript-eslint";
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
-
-const config = [
-  ...tseslint.config(
-    eslint.configs.recommended,
-    tseslint.configs.strictTypeChecked,
-  ),
-  ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript", "next"],
-  }),
+export default defineConfig([
+  ...nextVitals,
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    "node_modules/**",
+    ".next/**",
+    "out/**",
+    "build/**",
+    "en-wordnet/**",
+  ]),
+  eslint.configs.recommended,
+  tseslint.configs.strictTypeChecked,
   perfectionist.configs["recommended-alphabetical"],
   {
     languageOptions: {
@@ -38,12 +41,11 @@ const config = [
           varsIgnorePattern: "^_",
         },
       ],
+      "import/no-anonymous-default-export": "off",
       "no-restricted-imports": ["error", { patterns: ["../*"] }],
       // Handled by the Tailwind plugin for Prettier
       "tailwindcss/classnames-order": "off",
     },
   },
   eslintConfigPrettier,
-];
-
-export default config;
+]);

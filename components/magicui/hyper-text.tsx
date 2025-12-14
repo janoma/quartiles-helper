@@ -1,9 +1,10 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, type MotionProps } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+
+import { cn } from "@/lib/utils";
 
 type CharacterSet = readonly string[] | string[];
 
@@ -101,6 +102,14 @@ export function HyperText({
     };
   }, [delay, startOnView]);
 
+  const handleSetDisplayText = useEffectEvent((text: string[]) => {
+    setDisplayText(text);
+  });
+
+  const handleSetIsAnimating = useEffectEvent((isAnimating: boolean) => {
+    setIsAnimating(isAnimating);
+  });
+
   // Handle scramble animation
   useEffect(() => {
     if (!isAnimating) {
@@ -109,8 +118,8 @@ export function HyperText({
 
     if (prefersReducedMotion) {
       // No visual animation on reduced motion
-      setDisplayText(children.split(""));
-      setIsAnimating(false);
+      handleSetDisplayText(children.split(""));
+      handleSetIsAnimating(false);
       return;
     }
 
@@ -142,6 +151,7 @@ export function HyperText({
   }, [children, duration, isAnimating, characterSet, prefersReducedMotion]);
 
   return (
+    // eslint-disable-next-line react-hooks/static-components
     <MotionComponent
       className={cn("overflow-hidden", className)}
       onMouseEnter={handleAnimationTrigger}
